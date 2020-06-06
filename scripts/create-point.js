@@ -35,13 +35,17 @@ function getCities(event) {
 
     citySelect.innerHTML = "<option value> Selecione a cidade </option>"
     
+    citySelect.innerHTML ="<option value> Selecione a cidade </option>"
+    citySelect.disabled = true 
 
     fetch(url)
     .then( res => res.json() )
     .then( cities => {
         
+        
+
         for(const city of cities ){
-            citySelect.innerHTML += `<option value="${city.id}">${city.nome}</option>`
+            citySelect.innerHTML += `<option value="${city.nome}">${city.nome}</option>`
         }
         
         
@@ -57,3 +61,68 @@ document
      
 
 
+    /**items de coleta */
+
+    //pegar todos os li's
+
+    const itemsToCollect = document.querySelectorAll(".items-grid li");
+
+    for (const item of itemsToCollect){
+        item.addEventListener("click",handleSelectedItem);
+    }
+
+    let selectedItems = []
+
+    const collectedItems = document.querySelector("input[name=items]")
+
+    function handleSelectedItem(event){
+        
+        const itemLi = event.target
+
+        //adicionar ou remover um classe com java script
+        itemLi.classList.toggle("selected")
+
+        
+
+        const itemId = itemLi.dataset.id
+
+
+        //verificar se os itens estão selecionados
+        // pegar os itens selecionados
+        const alreadySelected = selectedItems.findIndex( item => {
+            const itemFound = item ==itemId //sera true ou false
+            return item == itemId
+
+        })
+
+
+        
+        // se ja estiver selecionado, tirar da seleção
+
+        if (alreadySelected >=0){
+            // tirar da selecao
+            const filteredItems = selectedItems.filter(item => {
+                const itemIsDifferent = item != itemId //false
+                return itemIsDifferent
+
+            } )
+
+            selectedItems = filteredItems
+        } else {
+            // se nao estiver selecionado , adicionar a seleção
+            // adicionar a seleção
+
+            selectedItems.push(itemId)
+
+        }
+
+       
+        // atualizar o campo esconddido com os dados selecionados
+        collectedItems.value = selectedItems
+
+
+
+
+
+
+    }
