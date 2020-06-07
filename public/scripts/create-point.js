@@ -86,6 +86,8 @@ document
 
         const itemId = itemLi.dataset.id
 
+       //console.log('ITEM ID:',itemId)
+
 
         //verificar se os itens estão selecionados
         // pegar os itens selecionados
@@ -116,7 +118,8 @@ document
 
         }
 
-       
+       // console.log('selectedItems:',itemId)
+
         // atualizar o campo esconddido com os dados selecionados
         collectedItems.value = selectedItems
 
